@@ -5,10 +5,10 @@ const handleRequest = frames(async (ctx) => {
 	return {
 		image: <span>{ctx.pressedButton ? `I clicked ${ctx.searchParams.value}` : `Click some button`}</span>,
 		buttons: [
-			<Button action='post' target={{query: {value: "yes"}}}>
+			<Button key='yes' action='post' target={{query: {value: "yes"}}}>
 				Say Yes
 			</Button>,
-			<Button action='post' target={{query: {value: "no"}}}>
+			<Button key='no' action='post' target={{query: {value: "no"}}}>
 				Say No
 			</Button>,
 		],
