@@ -1,13 +1,40 @@
-import {fetchMetadata} from "frames.js/next";
+import {getFrameMetadata} from "@coinbase/onchainkit";
+import type {Metadata} from "next";
 
-export async function generateMetadata() {
-	return {
-		title: "My Page",
-		// provide a full URL to your /frames endpoint
-		other: await fetchMetadata(new URL("/frames", process.env.VERCEL_URL ? `https://{process.env.VERCEL_URL}` : "http://localhost:3000")),
-	};
-}
+const frameMetadata = getFrameMetadata({
+	buttons: [
+		{
+			label: "Begin",
+		},
+	],
+	image: `${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/QmdKmNJVsQuEcTmsDm5K6G1pcvwPydYUXWacFmCFMY5uz1/0.jpg`,
+	post_url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/frame?id=1`,
+});
+
+export const metadata: Metadata = {
+	title: "Cosmic Cowboys",
+	description: "A frame telling the story of Cosmic Cowboys",
+	openGraph: {
+		title: "Cosmic Cowboys",
+		description: "A frame telling the story of Cosmic Cowboys",
+		images: [
+			{
+				url: `${process.env.NEXT_PUBLIC_GATEWAY_URL}/ipfs/QmdKmNJVsQuEcTmsDm5K6G1pcvwPydYUXWacFmCFMY5uz1/0.jpg`,
+				width: 800,
+				height: 600,
+				alt: "Cosmic Cowboys",
+			},
+		],
+	},
+	other: {
+		...frameMetadata,
+	},
+};
 
 export default function Page() {
-	return <span>My existing page</span>;
+	return (
+		<div>
+			<h1>Cosmic Cowboys</h1>
+		</div>
+	);
 }
